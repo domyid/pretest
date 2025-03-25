@@ -20,8 +20,8 @@ function loadQuestion(question) {
         <div class="options">
             ${question.options.map((option, index) => `
                 <label>
-                    <input type="radio" name="question" value="${String.fromCharCode(65 + index)}">
-                    ${String.fromCharCode(65 + index)}. ${option}
+                <input type="radio" name="question" value="${option.charAt(0)}">
+                ${option}
                 </label>
             `).join("")}
         </div>
