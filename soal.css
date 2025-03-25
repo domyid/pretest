@@ -1,39 +1,94 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
 }
 
-.container {
-    width: 50%;
-    margin: 20px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.question {
-    margin-bottom: 15px;
+.question-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.question-header {
+    background: #0eb3e5;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 16px;
+    width: fit-content;
+    margin: 0 auto 25px auto;
+    font-weight: bold;
     font-size: 18px;
 }
 
+#question-container p {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
 .options label {
-    display: block;
-    margin: 5px 0;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 15px;
-    font-size: 16px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f7f9fb;
+    border: 1px solid #ccc;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 15px;
     cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.options label:hover {
+    background: #e6f7ff;
+}
+
+.options input[type="radio"] {
+    transform: scale(1.2);
+}
+
+#submit-btn {
+    display: block;
+    margin: 30px auto 0 auto;
+    padding: 12px 28px;
+    background-color: #0eb3e5;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover {
+    background-color: #099dc6;
+}
+
+.option-label {
+    display: block;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.option-label:hover {
+    background-color: #f0f8ff;
 }

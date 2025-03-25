@@ -1,33 +1,52 @@
 const API_URL = "https://asia-southeast2-awangga.cloudfunctions.net/domyid";
 
+// Daftar ID soal, bisa diganti dengan angka atau UUID dari database
+const questionIds = ["1", "2", "3", "4", "5"];
+let currentIndex = 0;
+let userAnswers = [];
+
 document.addEventListener("DOMContentLoaded", function () {
-    const questionID = "1"; // ID soal yang ingin diambil (sesuaikan dengan kebutuhan)
-    
-    fetch(`${API_URL}/api/pretest/question/${questionID}`)
-        .then(response => response.json())
-        .then(data => loadQuestion(data))
-        .catch(error => console.error("Error loading question:", error));
+    loadQuestionById(questionIds[currentIndex]);
 });
 
-function loadQuestion(question) {
+function loadQuestionById(questionID) {
+    fetch(`${API_URL}/api/pretest/question/${questionID}`)
+        .then(response => response.json())
+        .then(data => {
+            renderQuestion(data);
+        })
+        .catch(error => console.error("Error loading question:", error));
+}
+
+function renderQuestion(question) {
     const container = document.getElementById("question-container");
-    container.innerHTML = ""; // Hapus konten lama
+    container.innerHTML = "";
+
+    const hiddenInput = document.createElement("input");
+    hiddenInput.type = "hidden";
+    hiddenInput.id = "question-id";
+    hiddenInput.value = question.id;
 
     const div = document.createElement("div");
     div.classList.add("question");
     div.innerHTML = `
-        <p><strong>${question.question}</strong></p>
+        <p>${question.question}</p>
         <div class="options">
-            ${question.options.map((option, index) => `
+            ${question.options.map(option => `
                 <label>
-                <input type="radio" name="question" value="${option.charAt(0)}">
-                ${option}
+                    <input type="radio" name="question" value="${option.charAt(0)}">
+                    ${option}
                 </label>
             `).join("")}
         </div>
     `;
+
+    container.appendChild(hiddenInput);
     container.appendChild(div);
 
+    // Ganti event listener pada tombol
+    const btn = document.getElementById("submit-btn");
+    btn.replaceWith(btn.cloneNode(true));
     document.getElementById("submit-btn").addEventListener("click", submitAnswer);
 }
 
@@ -38,12 +57,36 @@ function submitAnswer() {
         return;
     }
 
+    const questionId = document.getElementById("question-id").value;
+    const selectedLetter = selected.value;
+    const selectedText = selected.parentNode.textContent.trim();
+
     const answerData = {
-        user_id: "12345", // Gantilah dengan user ID yang valid
-        question_id: "1", // Gunakan ID yang sesuai
-        answer: selected.value
+        question_id: questionId,
+        answer_key: selectedLetter,
+        answer_text: selectedText
     };
 
-    console.log("User Answer:", answerData);
-    alert(`Jawaban Anda: ${answerData.answer}`);
+    userAnswers.push(answerData);
+    console.log("Jawaban tersimpan:", answerData);
+
+    // Pindah ke soal berikutnya
+    currentIndex++;
+    if (currentIndex < questionIds.length) {
+        loadQuestionById(questionIds[currentIndex]);
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    const container = document.getElementById("question-container");
+    container.innerHTML = `
+        <h3>Terima kasih!</h3>
+        <p>Kamu telah menyelesaikan seluruh soal pretest.</p>
+        <pre>${JSON.stringify(userAnswers, null, 2)}</pre>
+    `;
+
+    const btn = document.getElementById("submit-btn");
+    btn.style.display = "none";
 }
