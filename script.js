@@ -1,4 +1,14 @@
-document.getElementById("startButton").addEventListener("click", function() {
-    alert("Tes akan segera dimulai!");
-    // Bisa diarahkan ke halaman lain, misalnya: window.location.href = "soal.html";
+document.getElementById("startButton").addEventListener("click", function () {
+    Swal.fire({
+        title: "Siap untuk memulai?",
+        text: "Tes akan segera dimulai!",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Mulai",
+        cancelButtonText: "Batal",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "soal.html"; // Arahkan ke soal.html
+        }
+    });
 });
