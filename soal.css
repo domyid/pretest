@@ -30,16 +30,21 @@ body {
     margin: 0 auto 25px auto;
     font-weight: bold;
     font-size: 18px;
+    text-align: center;
 }
 
-#question-container p {
+#question-text {
     font-size: 20px;
     font-weight: 600;
     margin-bottom: 25px;
     text-align: center;
 }
 
-.options label {
+#options-container {
+    margin-bottom: 25px;
+}
+
+.option-label {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -50,18 +55,18 @@ body {
     margin-bottom: 15px;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s;
+    transition: background-color 0.3s;
 }
 
-.options label:hover {
-    background: #e6f7ff;
+.option-label:hover {
+    background-color: #e6f7ff;
 }
 
-.options input[type="radio"] {
+.option-label input[type="radio"] {
     transform: scale(1.2);
 }
 
-#submit-btn {
+#next-button {
     display: block;
     margin: 30px auto 0 auto;
     padding: 12px 28px;
@@ -75,20 +80,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-#submit-btn:hover {
+#next-button:hover {
     background-color: #099dc6;
-}
-
-.option-label {
-    display: block;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.option-label:hover {
-    background-color: #f0f8ff;
 }

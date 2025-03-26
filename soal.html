@@ -5,19 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soal Pretest</title>
     <link rel="stylesheet" href="soal.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="main-wrapper">
         <div class="question-card">
-            <div class="question-header">
-                <h3>Pertanyaan 1/15</h3>
+            <div class="question-header" id="question-number">
+                Pertanyaan 1/15
             </div>
+            <div id="loading" style="display:none; text-align:center;">Loading...</div>
+
             <div id="question-container">
-                <input type="hidden" id="question-id">
+                <div id="question-text"></div>
+                <div id="options-container"></div>
             </div>
-            <button id="submit-btn">Selanjutnya</button>
+
+            <button id="next-button">Selanjutnya</button>
         </div>
     </div>
-    <script src="soal.js"></script>
+
+    <script type="module" src="pretest.js"></script>
 </body>
 </html>
