@@ -75,7 +75,7 @@ async function processResults() {
             text: "Silakan login terlebih dahulu.",
             confirmButtonText: "Login",
         }).then(() => {
-            window.location.href = "/signin/";
+            window.location.href = "https://do.my.id/signin";
         });
         return;
     }
