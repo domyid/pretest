@@ -61,8 +61,10 @@
     <div class="container">
         <h2>Hasil Pretest Anda</h2>
         <div id="loading-spinner" class="loading-spinner"></div>
+
         <p>Nama Anda: <span id="username" class="highlight">Loading...</span></p>
         <p>Skor Pretest Anda: <span id="pretest" class="highlight">Loading...</span></p>
+        <p>Nilai Pretest: <span id="pretest" class="highlight">Loading...</span></p>
         <p>Waktu Tes: <span id="datetime" class="highlight">Loading...</span></p>
         <div class="button-container">
             <button class="btn" onclick="window.location.href='https://do.my.id/dashboard/'">Kembali ke Beranda</button>
@@ -104,9 +106,8 @@
 
                 // Tampilkan data jika tersedia
                 document.getElementById("username").innerText = result.name || "-";
-                document.getElementById("pretest").innerText = result.score && result.pretest
-                    ? `${result.score} (Nilai: ${result.pretest})`
-                    : "Tidak tersedia";
+                document.getElementById("score").innerText = result.score || "Tidak tersedia";
+                document.getElementById("pretest").innerText = result.pretest || "Tidak tersedia";
                 document.getElementById("datetime").innerText = result.created_at || "Tidak tersedia";
 
             } catch (error) {
