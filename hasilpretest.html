@@ -61,10 +61,9 @@
     <div class="container">
         <h2>Hasil Pretest Anda</h2>
         <div id="loading-spinner" class="loading-spinner"></div>
-
+        
         <p>Nama Anda: <span id="username" class="highlight">Loading...</span></p>
         <p>Skor Pretest Anda: <span id="pretest" class="highlight">Loading...</span></p>
-        <p>Nilai Pretest: <span id="pretest" class="highlight">Loading...</span></p>
         <p>Waktu Tes: <span id="datetime" class="highlight">Loading...</span></p>
         <div class="button-container">
             <button class="btn" onclick="window.location.href='https://do.my.id/dashboard/'">Kembali ke Beranda</button>
@@ -75,22 +74,22 @@
         import { getCookie } from "https://cdn.jsdelivr.net/gh/jscroot/cookie@0.0.1/croot.js";
 
         const API_URL = "https://asia-southeast2-awangga.cloudfunctions.net/domyid";
-        
+
         function showLoading(isLoading) {
             const spinner = document.getElementById("loading-spinner");
             spinner.style.display = isLoading ? "block" : "none";
         }
-        
+
         async function loadPretestResults() {
             const token = getCookie("login");
-        
+
             if (!token) {
                 window.location.href = "https://do.my.id/signin";
                 return;
             }
-        
+
             showLoading(true);
-        
+
             try {
                 const response = await fetch(`${API_URL}/api/pretest/user`, {
                     method: "GET",
@@ -99,25 +98,23 @@
                         "login": token
                     }
                 });
-        
+
+                if (!response.ok) throw new Error("Gagal mengambil data pretest.");
+
                 const result = await response.json();
-        
-                // ✅ Periksa data langsung (tanpa result.status)
-                if (!result.name || !result.score) {
-                    throw new Error("Data tidak lengkap.");
-                }
-        
+
+                // Tampilkan data jika tersedia
                 document.getElementById("username").innerText = result.name || "-";
-                document.getElementById("score").innerText = result.score || "-";
-                document.getElementById("pretest").innerText = result.pretest || "-";
-                document.getElementById("datetime").innerText = result.created_at || "-";
-        
+                document.getElementById("pretest").innerText = result.score && result.pretest
+                    ? `${result.score} (Nilai: ${result.pretest})`
+                    : "Tidak tersedia";
+                document.getElementById("datetime").innerText = result.created_at || "Tidak tersedia";
+
             } catch (error) {
                 document.getElementById("username").innerText = "-";
-                document.getElementById("score").innerText = "Tidak tersedia";
                 document.getElementById("pretest").innerText = "Tidak tersedia";
                 document.getElementById("datetime").innerText = "Tidak tersedia";
-        
+
                 Swal.fire({
                     icon: "error",
                     title: "Gagal Memuat Hasil",
@@ -128,8 +125,8 @@
                 showLoading(false);
             }
         }
-        
-        document.addEventListener("DOMContentLoaded", loadPretestResults);        
+
+        document.addEventListener("DOMContentLoaded", loadPretestResults);
     </script>
 
 </body>
